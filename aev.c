@@ -31,6 +31,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unistd.h>
 #include <stdlib.h>
 
+#ifdef HAVE_KQUEUE
+#include "aev_kqueue.h"
+#endif
 
 /* not thread-safe */
 int aev_ref_get(struct aev_loop *loop){
