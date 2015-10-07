@@ -36,7 +36,16 @@ OBJ := $(SRC:%.c=%.o)
 
 example: $(OBJ)
 
+kernel=$(shell uname -s)
+
+ifeq ($(kernel),Linux)
+cppflags:=-DHAVE_EPOLL
+endif
+
+ifeq ($(kernel),Darwin)
 cppflags:=-DHAVE_KQUEUE
+endif
+
 
 %.o: %.c
 	$(quiet)printf "Compile file $<\n"
