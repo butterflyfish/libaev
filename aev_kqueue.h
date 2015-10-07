@@ -73,11 +73,6 @@ static inline int _aev_io_stop(struct aev_loop *loop, aev_io *w)
     return ret;
 }
 
-static inline int _aev_io_pause(struct aev_loop *loop, aev_io *w)
-{
-    return _aev_io_action(loop->aevfd, w, EV_DISABLE);
-}
-
 int _aev_loop_new( struct aev_loop *loop){
 
     if (loop->paev == NULL) {

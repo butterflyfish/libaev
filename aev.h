@@ -113,14 +113,6 @@ int aev_io_start(struct aev_loop *loop, aev_io *w);
 int aev_io_stop(struct aev_loop *loop, aev_io *w);
 
 
-/* aev_io_stop: pause the watcher
- *
- * @loop: which loop is  attached
- * @w: wathcher
- */
-int aev_io_pause(struct aev_loop *loop, aev_io *w);
-
-
 /* aev_run: loop routine of event loop
  *
  * it exits automatically, and delete event loop @loop
