@@ -35,6 +35,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "aev_kqueue.h"
 #endif
 
+#ifdef HAVE_EPOLL
+#include "aev_epoll.h"
+#endif
+
 /* not thread-safe */
 int aev_ref_get(struct aev_loop *loop){
     struct aev_ref *ref = &loop->ref;
