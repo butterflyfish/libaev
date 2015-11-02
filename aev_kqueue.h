@@ -30,7 +30,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <sys/types.h>
 #include <sys/event.h>
 #include <sys/time.h>
-#include <stdlib.h>
 
 #include "aev.h"
 
@@ -116,17 +115,10 @@ static inline int _aev_timer_stop(struct aev_loop *loop, aev_timer *w) {
 }
 
 
-int _aev_loop_new( struct aev_loop *loop){
+static inline int _aev_loop_init( struct aev_loop *loop){
 
-    if (loop->paev == NULL) {
-        loop->aevfd = kqueue();
-        loop->paev = malloc(loop->setsize * sizeof(struct kevent));
-    } else {
-        free(loop->paev);
-        loop->paev = malloc(loop->setsize * sizeof(struct kevent));
-    }
-
-    return loop->paev ? 0 : -1;
+    loop->aevfd = kqueue();
+    return loop->aevfd;
 }
 
 static inline int _aev_run(struct aev_loop *loop){
@@ -136,9 +128,9 @@ static inline int _aev_run(struct aev_loop *loop){
     int numevents = 0;
     aev_io *io;
     aev_timer *tm;
-    struct kevent *events = (struct kevent *)(loop->paev);
+    struct kevent events[AEV_MAX_EVENT_SIZE];
 
-    numevents = kevent(loop->aevfd, NULL, 0, events, loop->setsize, NULL);
+    numevents = kevent(loop->aevfd, NULL, 0, events, AEV_MAX_EVENT_SIZE, NULL);
 
     if (numevents < 0)
         return numevents;

@@ -37,6 +37,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define AEV_WRITE      2
 
 
+#define AEV_MAX_EVENT_SIZE 1024
+
 /* event loop structure */
 struct aev_loop;
 
@@ -49,7 +51,6 @@ struct aev_ref {
 /* event loop structure */
 struct aev_loop {
 
-    int setsize; /* maximum number of fd tracked */
     struct aev_ref ref; /* reference counter */
 
     /* platform dependent data */
@@ -57,13 +58,8 @@ struct aev_loop {
     void *paev;
 };
 
-/* aev_loop_new: new event loop
- *
- * it's deleted automatically before exiting from aev_run
- *
- * @setsize: maximum number of fd tracked
- */
-struct aev_loop * aev_loop_new(int setsize);
+/* aev_loop_init: initialize event loop */
+int aev_loop_init(struct aev_loop *loop);
 
 
 /* aev_run: loop routine of event loop

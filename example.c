@@ -62,20 +62,22 @@ static void timer_oneshot(struct aev_loop *loop, aev_timer *w)
 
 int main(int argc, char *argv[])
 {
-    struct aev_loop *loop = aev_loop_new(8);
+    struct aev_loop loop;
     struct aev_io w;
     aev_timer tm;
     aev_timer oneshot;
 
+    aev_loop_init(&loop);
+
     aev_io_init(&w,0,stdin_cb,AEV_READ,NULL);
-    aev_io_start(loop, &w);
+    aev_io_start(&loop, &w);
 
     aev_timer_init(&tm,timer_cb,500,1);
     aev_timer_init(&oneshot,timer_oneshot,500,0);
 
-    aev_timer_start(loop, &tm);
-    aev_timer_start(loop, &oneshot);
+    aev_timer_start(&loop, &tm);
+    aev_timer_start(&loop, &oneshot);
 
-    aev_run(loop);
+    aev_run(&loop);
     return 0;
 }
