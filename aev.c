@@ -91,6 +91,19 @@ struct aev_loop * aev_loop_new(int setsize){
     return loop;
 }
 
+int aev_run(struct aev_loop *loop){
+    int ret = 0;
+
+    if (loop == NULL) return -1;
+
+    while(1) {
+        ret = _aev_run(loop);
+        if ( ret < 0) break;
+    }
+    return ret;
+}
+
+
 int aev_io_init(aev_io *w, int fd, aev_io_cb cb,
                int evmask, void *data){
 
@@ -109,17 +122,5 @@ int aev_io_start(struct aev_loop *loop, aev_io *w)
 int aev_io_stop(struct aev_loop *loop, aev_io *w)
 {
     return _aev_io_stop(loop,w);
-}
-
-int aev_run(struct aev_loop *loop){
-    int ret = 0;
-
-    if (loop == NULL) return -1;
-
-    while(1) {
-        ret = _aev_run(loop);
-        if ( ret < 0) break;
-    }
-    return ret;
 }
 

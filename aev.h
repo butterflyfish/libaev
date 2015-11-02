@@ -56,6 +56,35 @@ struct aev_loop {
     void *paev;
 };
 
+/* aev_loop_new: new event loop
+ *
+ * it's deleted automatically before exiting from aev_run
+ *
+ * @setsize: maximum number of fd tracked
+ */
+struct aev_loop * aev_loop_new(int setsize);
+
+
+/* aev_run: loop routine of event loop
+ *
+ * it exits automatically, and delete event loop @loop
+ *
+ * @loop: point to event loop
+ */
+int aev_run(struct aev_loop *loop);
+
+
+/* aev_ref_get: increase reference count on the loop */
+int aev_ref_get(struct aev_loop *loop);
+
+
+/* aev_ref_put: decrease reference count on the loop */
+int aev_ref_put(struct aev_loop *loop);
+
+
+
+
+
 /* type of IO watcher */
 typedef struct aev_io aev_io;
 
@@ -70,16 +99,6 @@ struct aev_io {
     aev_io_cb cb;   /* fd handler */
     void *data;      /* user data */
 };
-
-
-
-/* aev_loop_new: new event loop
- *
- * it's deleted automatically before exiting from aev_run
- *
- * @setsize: maximum number of fd tracked
- */
-struct aev_loop * aev_loop_new(int setsize);
 
 
 /* aev_io_init: initialize IO watcher
@@ -112,21 +131,5 @@ int aev_io_start(struct aev_loop *loop, aev_io *w);
  */
 int aev_io_stop(struct aev_loop *loop, aev_io *w);
 
-
-/* aev_run: loop routine of event loop
- *
- * it exits automatically, and delete event loop @loop
- *
- * @loop: point to event loop
- */
-int aev_run(struct aev_loop *loop);
-
-
-/* aev_ref_get: increase reference count on the loop */
-int aev_ref_get(struct aev_loop *loop);
-
-
-/* aev_ref_put: decrease reference count on the loop */
-int aev_ref_put(struct aev_loop *loop);
 
 #endif
