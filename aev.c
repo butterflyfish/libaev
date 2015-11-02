@@ -94,7 +94,7 @@ struct aev_loop * aev_loop_new(int setsize){
 int aev_run(struct aev_loop *loop){
     int ret = 0;
 
-    if (loop == NULL) return -1;
+    if (loop == NULL || loop->ref.count == 0) return -1;
 
     while(1) {
         ret = _aev_run(loop);
