@@ -124,3 +124,34 @@ int aev_io_stop(struct aev_loop *loop, aev_io *w)
     return _aev_io_stop(loop,w);
 }
 
+
+
+void aev_timer_set(aev_timer *w, unsigned long ms, char periodic) {
+
+    AEV_TIMER_INIT(NULL, ms, periodic);
+}
+
+int aev_timer_init(aev_timer *w, aev_timer_cb cb,  unsigned long ms,
+                   char periodic) {
+
+    AEV_TIMER_INIT(cb, ms, periodic);
+
+    return _aev_timer_init(w);
+}
+
+int aev_timer_start(struct aev_loop *loop, aev_timer *w) {
+
+    return _aev_timer_start(loop, w);
+}
+
+int aev_timer_stop(struct aev_loop *loop, aev_timer *w) {
+
+    return _aev_timer_stop(loop, w);
+}
+
+
+
+int aev_timer_restart(struct aev_loop *loop, aev_timer *w) {
+
+    return _aev_timer_restart(loop, w);
+}
