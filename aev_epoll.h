@@ -36,7 +36,6 @@ static inline int _aev_io_action(int epfd, aev_io *w, int op)
     struct epoll_event ee;
 
     ee.events = 0;
-    ee.data.fd = w->fd;
     ee.data.ptr = w;
 
     if (w->evmask & AEV_READ) ee.events |= EPOLLIN;
