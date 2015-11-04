@@ -62,7 +62,7 @@ static inline int _aev_io_stop(struct aev_loop *loop, aev_io *w)
     return ret;
 }
 
-int _aev_loop_init( struct aev_loop *loop){
+static inline int _aev_loop_init( struct aev_loop *loop){
 
     loop->aevfd = epoll_create1(0);
     return loop->aevfd;
