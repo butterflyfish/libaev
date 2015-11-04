@@ -40,9 +40,8 @@ static inline int _aev_io_action(int epfd, aev_io *w, int op)
 
     if (w->evmask & AEV_READ) ee.events |= EPOLLIN;
     if (w->evmask & AEV_WRITE) ee.events |= EPOLLOUT;
-    if (epoll_ctl(epfd, op, w->fd, &ee) == -1) return -1;
 
-    return 0;
+    return epoll_ctl(epfd, op, w->fd, &ee);
 }
 
 static inline int _aev_io_start(struct aev_loop *loop, aev_io *w)
