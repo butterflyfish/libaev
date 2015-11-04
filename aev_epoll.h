@@ -75,7 +75,7 @@ static inline int _aev_run(struct aev_loop *loop){
     aev_io *w;
     struct epoll_event events[AEV_MAX_EVENT_SIZE];
 
-    numevents = epoll_wait(loop->aevfd, events, AEV_MAX_EVENT_SIZE, NULL);
+    numevents = epoll_wait(loop->aevfd, events, AEV_MAX_EVENT_SIZE, 0);
 
     if (numevents < 0)
         return numevents;
