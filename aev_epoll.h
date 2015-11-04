@@ -117,14 +117,6 @@ static inline int _aev_timer_restart(struct aev_loop *loop, aev_timer *w) {
     return ret;
 }
 
-static inline int _aev_timer_start(struct aev_loop *loop, aev_timer *w) {
-
-    int ret;
-    ret = _aev_timer_restart(loop, w);
-    if (0 == ret) aev_ref_get(loop);
-    return ret;
-}
-
 static inline int _aev_timer_stop(struct aev_loop *loop, aev_timer *w) {
 
     struct epoll_event ee;
