@@ -30,7 +30,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _AEV_H_
 #define _AEV_H_
 
-#include <sys/time.h>
 
 #define AEV_NONE              0
 #define AEV_READ              1
