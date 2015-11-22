@@ -124,8 +124,9 @@ static inline int _aev_run(struct aev_loop *loop){
 
     numevents = kevent(loop->aevfd, NULL, 0, events, AEV_MAX_EVENT_SIZE, NULL);
 
-    if (numevents < 0)
+    if (numevents < 1){
         return numevents;
+    }
 
     for(j = 0; j < numevents; j++) {
         struct kevent *ke = events+j;
