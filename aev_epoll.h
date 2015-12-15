@@ -57,7 +57,7 @@ static inline int _aev_io_stop(struct aev_loop *loop, aev_io *w)
 {
     int ret;
     ret = _aev_io_action(loop->aevfd, w, EPOLL_CTL_DEL);
-    if (0 == ret) aev_ref_put(loop);
+    aev_ref_put(loop);
     return ret;
 }
 
@@ -128,7 +128,7 @@ static inline int _aev_timer_stop(struct aev_loop *loop, aev_timer *w) {
     EPOLL_CTL_DEL.
     */
     ret = epoll_ctl(loop->aevfd, EPOLL_CTL_DEL, w->ident, &ee);
-    if (0 == ret) aev_ref_put(loop);
+    aev_ref_put(loop);
     return ret;
 }
 

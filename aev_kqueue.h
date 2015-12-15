@@ -68,7 +68,7 @@ static inline int _aev_io_stop(struct aev_loop *loop, aev_io *w)
 {
     int ret;
     ret = _aev_io_action(loop->aevfd, w, EV_DELETE);
-    if (0 == ret) aev_ref_put(loop);
+    aev_ref_put(loop);
     return ret;
 }
 
