@@ -84,6 +84,26 @@ int aev_run(struct aev_loop *loop){
     return ret;
 }
 
+int aev_io_nonblock(int fd, char non_block) {
+
+    int flags;
+
+    if ((flags = fcntl(fd, F_GETFL)) == -1) {
+        return -1;
+    }
+
+    if (non_block)
+        flags |= O_NONBLOCK;
+    else
+        flags &= ~O_NONBLOCK;
+
+    if (fcntl(fd, F_SETFL, flags) == -1) {
+        return -1;
+    }
+    return 0;
+}
+
+
 
 int aev_io_init(aev_io *w, int fd, aev_io_cb cb,
                int evmask, void *data){
@@ -92,7 +112,7 @@ int aev_io_init(aev_io *w, int fd, aev_io_cb cb,
     w->cb = cb;
     w->evmask = evmask;
     w->data = data;
-    return fcntl(fd, F_SETFL, O_NONBLOCK|fcntl(fd,F_GETFL,0));
+    return aev_io_nonblock(fd, 1);
 }
 
 int aev_io_start(struct aev_loop *loop, aev_io *w)

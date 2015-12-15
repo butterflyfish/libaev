@@ -59,6 +59,12 @@ struct aev_loop {
     void *paev;
 };
 
+/* aev_io_nonblock: set IO to BLOCK or NONBLOCK
+ * @fd: which IO
+ * @nonblock: true --> NONBLOCK; flase --> BLOCK
+ */
+int aev_io_nonblock(int fd, char non_block);
+
 /* aev_loop_init: initialize event loop */
 int aev_loop_init(struct aev_loop *loop);
 
