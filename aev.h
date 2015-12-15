@@ -55,7 +55,7 @@ struct aev_loop {
     struct aev_ref ref; /* reference counter */
 
     /* platform dependent data */
-    int aevfd;
+    int aevfd; /* not inherited by a child process created with fork */
     void *paev;
 };
 
