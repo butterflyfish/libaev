@@ -145,7 +145,10 @@ static inline void timer_expire_cb(struct aev_loop *loop, void *p)
 
 static inline int _aev_loop_init( struct aev_loop *loop){
 
-    loop->aevfd = epoll_create1(0);
+    /* set the close-on-exec flag.
+     * See open(2) for reasons why this may be useful
+     */
+    loop->aevfd = epoll_create1(EPOLL_CLOEXEC);
     return loop->aevfd;
 }
 
